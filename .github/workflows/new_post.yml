@@ -1,0 +1,19 @@
+name: New Post Detector and Email Notifier
+
+on:
+  schedule:
+    - cron: 0 8 * * *  # Run daily at 8am UTC
+
+jobs:
+  new-post-detector:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4 requests
+      - name: Run new post detector
+        run: |
+          python detector.py
